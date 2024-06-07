@@ -4,7 +4,8 @@ namespace Modules\WMChat\Actions;
 
 use API,
 	CController,
-	CControllerResponseData;
+	CControllerResponseData,
+	Modules\WMChat\Includes\WMChatHelper;
 
 class WMChatGet extends CController {
 
@@ -21,10 +22,12 @@ class WMChatGet extends CController {
 	}
 
 	protected function doAction(): void {
+		$itemid = WMChatHelper::getItemId();
+
 		$history_data = API::History()->get([
 			'output' => ['clock', 'value'],
 			'history' => ITEM_VALUE_TYPE_STR,
-			'itemids' => '47201',
+			'itemids' => $itemid,
 			'sortfield' => 'clock',
 			'sortorder' => 'ASC'
 		]);

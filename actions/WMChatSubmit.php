@@ -5,7 +5,8 @@ namespace Modules\WMChat\Actions;
 use API,
 	CController,
 	CControllerResponseData,
-	CWebUser;
+	CWebUser,
+	Modules\WMChat\Includes\WMChatHelper;
 
 class WMChatSubmit extends CController {
 
@@ -39,6 +40,8 @@ class WMChatSubmit extends CController {
 	}
 
 	protected function doAction(): void {
+		$itemid = WMChatHelper::getItemId();
+
 		$author = CWebUser::$data['name'] !== '' || CWebUser::$data['surname'] !== ''
 			? CWebUser::$data['name'].' '.CWebUser::$data['surname']
 			: CWebUser::$data['username'];
@@ -49,7 +52,7 @@ class WMChatSubmit extends CController {
 		]);
 
 		API::History()->push([
-			'itemid' => '47201',
+			'itemid' => $itemid,
 			'value' => $value
 		]);
 
