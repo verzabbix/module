@@ -1,6 +1,13 @@
 class WMChatView {
 
 	/**
+	 * CSRF token for submitting new messages.
+	 *
+	 * @type {string}
+	 */
+	csrf_token_submit;
+
+	/**
 	 * Container of chat messages.
 	 *
 	 * @type {HTMLDivElement}
@@ -21,7 +28,9 @@ class WMChatView {
 	 */
 	submit_button;
 
-	constructor() {
+	constructor({csrf_token_submit}) {
+		this.csrf_token_submit = csrf_token_submit;
+
 		this.messages_container = document.getElementById('wmchat-messages');
 
 		this.startUpdatingMessages();
@@ -115,7 +124,10 @@ class WMChatView {
 		fetch(curl.getUrl(), {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify({message})
+			body: JSON.stringify({
+				_csrf_token: this.csrf_token_submit,
+				message
+			})
 		})
 			.then(response => response.json())
 			.then(response => {

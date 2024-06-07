@@ -23,7 +23,9 @@
 	->show();
 
 (new CScriptTag('
-	new WMChatView();
+	new WMChatView('.json_encode([
+		'csrf_token_submit' => CCsrfTokenHelper::get('wmchat.submit')
+	]).');
 '))
 	->setOnDocumentReady()
 	->show();
