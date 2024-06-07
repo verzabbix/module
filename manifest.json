@@ -1,0 +1,16 @@
+{
+	"manifest_version": 2.0,
+	"id": "wmchat",
+	"type": "module",
+	"name": "Wellmade chat",
+	"namespace": "WMChat",
+	"version": "1.0",
+	"author": "Wellmade",
+	"description": "Allows chatting with other Zabbix users.",
+	"actions": {
+		"wmchat.view": {
+			"class": "WMChatView",
+			"view": "wmchat.view"
+		}
+	}
+}
