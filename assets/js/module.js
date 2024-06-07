@@ -47,7 +47,15 @@ class WMChatView {
 		fetch(curl.getUrl())
 			.then(response => response.json())
 			.then(response => {
+				if ('error' in response) {
+					throw {error: response.error};
+				}
+
 		 		this.setMessages(response.chat_messages);
+			})
+			.catch(exception => {
+				clearMessages();
+				addMessage(this.makeMessageBoxFromException(exception));
 			})
 			.finally(() => {
 				setTimeout(() => this.startUpdatingMessages(), 1000);
@@ -90,6 +98,8 @@ class WMChatView {
 	}
 
 	submitMessage() {
+		clearMessages();
+
 		const message = this.input.value.trim();
 
 		if (message === '') {
@@ -107,12 +117,37 @@ class WMChatView {
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({message})
 		})
+			.then(response => response.json())
+			.then(response => {
+				if ('error' in response) {
+					throw {error: response.error};
+				}
+
+				this.input.value = '';
+			})
+			.catch(exception => {
+				addMessage(this.makeMessageBoxFromException(exception));
+			})
 			.finally(() => {
 				this.input.disabled = false;
 				this.submit_button.disabled = false;
 
-				this.input.value = '';
 				this.input.focus();
 			});
+	}
+
+	makeMessageBoxFromException(exception) {
+		let title;
+		let messages = [];
+
+		if (typeof exception === 'object' && 'error' in exception) {
+			title = exception.error.title;
+			messages = exception.error.messages;
+		}
+		else {
+			title = 'Unknown web server error';
+		}
+
+		return makeMessageBox('bad', messages, title);
 	}
 }

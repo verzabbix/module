@@ -3,7 +3,8 @@
 namespace Modules\WMChat\Includes;
 
 use API,
-	Modules\WMChat\Module;
+	Modules\WMChat\Module,
+	RuntimeException;
 
 class WMChatHelper {
 
@@ -17,6 +18,10 @@ class WMChatHelper {
 			'searchByAny' => true
 		]);
 
+		if (count($macros) !== 2) {
+			throw new RuntimeException('Required global user macros are not configured.');
+		}
+
 		$macros = array_column($macros, 'value', 'macro');
 
 		$items = API::Item()->get([
@@ -26,6 +31,10 @@ class WMChatHelper {
 				'key_' => $macros[Module::MACRO_ITEM_KEY]
 			]
 		]);
+
+		if (!$items) {
+			throw new RuntimeException('Chat history item not found.');
+		}
 
 		return $items[0]['itemid'];
 	}
