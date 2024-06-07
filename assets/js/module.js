@@ -34,6 +34,7 @@ class WMChatView {
 				this.submitMessage();
 			}
 		});
+		this.input.focus();
 
 		this.submit_button = input_container.querySelector('button');
 		this.submit_button.addEventListener('click', () => this.submitMessage());
@@ -54,9 +55,17 @@ class WMChatView {
 	}
 
 	setMessages(messages) {
+		const is_max_scrolled = this.messages_container.scrollTop
+			=== this.messages_container.scrollHeight - this.messages_container.clientHeight;
+
 		this.messages_container.innerHTML = '';
 
 		messages.forEach(message => this.appendMessage(message));
+
+		if (is_max_scrolled) {
+			this.messages_container.scrollTop =
+				this.messages_container.scrollHeight - this.messages_container.clientHeight;
+		}
 	}
 
 	appendMessage({author, message, time}) {
@@ -87,6 +96,9 @@ class WMChatView {
 			return;
 		}
 
+		this.input.disabled = true;
+		this.submit_button.disabled = true;
+
 		const curl = new Curl('zabbix.php');
 		curl.setArgument('action', 'wmchat.submit');
 
@@ -94,6 +106,13 @@ class WMChatView {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({message})
-		});
+		})
+			.finally(() => {
+				this.input.disabled = false;
+				this.submit_button.disabled = false;
+
+				this.input.value = '';
+				this.input.focus();
+			});
 	}
 }
