@@ -7,5 +7,17 @@
 
 (new CHtmlPage())
 	->setTitle('Wellmade chat')
-	->addItem('Hello, Zabbix world!')
+	->addItem(
+		(new CDiv())
+			->setId('wmchat-container')
+			->addItem([
+				(new CDiv())->setId('wmchat-messages'),
+				(new CDiv())
+					->setId('wmchat-input')
+					->addItem(
+						(new CTextBox('message'))->setAttribute('autocomplete', 'off')
+					)
+					->addItem(new CSimpleButton('Send'))
+			])
+	)
 	->show();

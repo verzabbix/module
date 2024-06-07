@@ -12,5 +12,8 @@
 			"class": "WMChatView",
 			"view": "wmchat.view"
 		}
+	},
+	"assets": {
+		"css": ["module.css"]
 	}
 }

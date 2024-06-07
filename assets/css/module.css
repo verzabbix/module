@@ -1,0 +1,14 @@
+#wmchat-container {
+	height: calc(100vh - 300px);
+	display: grid;
+	grid-template-rows: 1fr max-content;
+	row-gap: 20px;
+}
+#wmchat-input {
+	display: grid;
+	grid-template-columns: 1fr 100px;
+}
+#wmchat-input input,
+#wmchat-input button {
+	height: 40px;
+}
