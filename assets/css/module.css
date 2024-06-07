@@ -4,6 +4,26 @@
 	grid-template-rows: 1fr max-content;
 	row-gap: 20px;
 }
+#wmchat-messages {
+	overflow-y: auto;
+	display: grid;
+	grid-template-columns: 200px 1fr;
+	grid-auto-rows: min-content;
+	gap: 10px 10px;
+	font-size: 1.35em;
+	line-height: normal;
+}
+#wmchat-messages .time {
+	opacity: 0.6;
+}
+#wmchat-messages .author {
+	color: #0a466a;
+	margin-right: 10px;
+	opacity: 0.5;
+}
+#wmchat-messages .message {
+	word-break: break-all;
+}
 #wmchat-input {
 	display: grid;
 	grid-template-columns: 1fr 100px;

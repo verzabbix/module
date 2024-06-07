@@ -12,6 +12,10 @@
 			"class": "WMChatView",
 			"view": "wmchat.view"
 		},
+		"wmchat.get": {
+			"class": "WMChatGet",
+			"layout": "layout.json"
+		},
 		"wmchat.submit": {
 			"class": "WMChatSubmit",
 			"layout": "layout.json"
