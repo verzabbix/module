@@ -21,3 +21,9 @@
 			])
 	)
 	->show();
+
+(new CScriptTag('
+	new WMChatView();
+'))
+	->setOnDocumentReady()
+	->show();

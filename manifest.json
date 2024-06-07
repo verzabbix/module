@@ -11,9 +11,14 @@
 		"wmchat.view": {
 			"class": "WMChatView",
 			"view": "wmchat.view"
+		},
+		"wmchat.submit": {
+			"class": "WMChatSubmit",
+			"layout": "layout.json"
 		}
 	},
 	"assets": {
-		"css": ["module.css"]
+		"css": ["module.css"],
+		"js": ["module.js"]
 	}
 }
